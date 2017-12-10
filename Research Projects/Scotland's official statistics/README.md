@@ -107,6 +107,7 @@ Finally we came up with three datasets which namely are:
 ##Results
 
 ### Data Selection
+
 The datasets that have been retrieved are shown below
 
 | Dataset                                                 | Type  |       | Year |      |      |      | Special subsets or notes          | 
@@ -141,3 +142,139 @@ The datasets that have been retrieved are shown below
 | School Pupil Census                                     |       | X     |      |      |      | X    |                                   | 
 | Travel times to key services by car or public transport |       | X     |      |      |      | X    |                                   | 
 | Working Age Claimants of Key Benefits                   | X     |       | X    | X    | X    | X    | Reference Period 20xx-Q1,Q2,Q3,Q4 | 
+
+Please note that the previous table shows our selected datasets based on our criteria; not all the available datasets & features were extracted. 
+
+**Features** 
+
+The list of all extracted features (450 in total) can be found in the appendix file
+
+
+### Dimension reduction
+
+**With Lasso method (variable seleection and regularisation).**
+
+|                                               | Ratio                                        |                                                   |                                                   | 
+|-----------------------------------------------|----------------------------------------------|---------------------------------------------------|---------------------------------------------------| 
+| Name of Dataset                               | 2012 Ratio features - 2012 House Prices Mean | 2009-2011 Ratio features - 2012 House Prices Mean | 2009-2012 Ratio features - 2012 House Prices Mean | 
+| Number of used Observations (after cleansing) | 5799                                         | 5971                                              | 5421                                              | 
+| Number of Predictors                          | 109                                          | 354                                               | 450                                               | 
+| Type of Predictors                            | Ratio                                        | Ratio                                             | Ratio                                             | 
+| Year of Predictors                            | 2012                                         | 2009-2011                                         | 2009-2012                                         | 
+| Type of Response                              | Mean                                         | Mean                                              | Mean                                              | 
+| Year of Response                              | 2012                                         | 2012                                              | 2012                                              | 
+| Lasso lowest MSE                              | 1.759.653.444                                | 1.688.913.530                                     | 1.556.214.763                                     | 
+| With number of selected variables             | 42                                           | 155                                               | 179                                               | 
+| Lasso MSE 1SE                                 | 1.908.480.159                                | 1.755.722.722                                     | 1.651.305.609                                     | 
+| Square root                                   | 43686.16                                     | 40862.17                                          | 40636.26                                          | 
+| With number of selected variables             | 20                                           | 65                                                | 40                                                | 
+| Percentage of reduction                       | 82%                                          | 82%                                               | 92%                                               | 
+
+
+  
+<br><br>
+
+**100 random sampling repeats 
+-	Variation of results for the three final datasets.**
+
+
+<br><br>
+
+| Variation of MSEs (error of every dataset) | Variation of total number of Selected Predictors |
+|------|------|
+| ![box1](box1.png)| ![box2](box2.png)|
+| 1.	2009-2011 Ratio features - 2012 House Prices Mean | 1.	2009-2011 Ratio features - 2012 House Prices Mean |
+| 2.	2009-2012 Ratio features - 2012 House Prices Mean | 2.	2009-2012 Ratio features - 2012 House Prices Mean
+| 3. 2012 Ratio features - 2012 House Prices Mean | 3. 2012 Ratio features - 2012 House Prices Mean| 
+
+<br><br>
+
+**Having compared our three different datasets, we concluded that "2009-2012 Ratio features - 2012 House Prices Mean" will be that one, which we are going to use in our prediction - fitting methods.**
+
+
+
+**The following plot shows, how the error estimation (or equivalently accuracy), fluctuates for different number of features.**
+**In our case we choose a number of features until it does not significantly increase our error of estimation**
+
+<br><br>
+
+
+![lasso](lasso.png)
+
+<br><br>
+
+So regarding, 2009-2012 Ratio features - 2012 House Prices Mean dataset:
+Finally, only a few datasets were selected from statistics.gov.scot.
+These were:
+
+* Age.of.First.Time.Mothers
+* Ante.Natal.Smoking
+* Breastfeeding
+* Disability.Living.Allowance
+* Dwellings.by.Number.of.Rooms..Number.Of.Rooms
+* Employment.and.Support.Allowance
+* Hospital.Admissions
+* Income.And.Poverty.Modelled.Estimates
+* Pension.Credits
+* Job.Seekers.Allowance.Claimants
+
+
+And from these 10 datasets, only 45 features were selected.   
+These were: 
+
+1.  "Age.of.First.Time.Mothers..Age...35.And.Over..Reference.Period...2010.11.2012.13..measure.type...Ratio.x"                                                                                                                                  
+2.  "Age.of.First.Time.Mothers..Age...35.And.Over..Reference.Period...2009.10.2011.12..measure.type...Ratio"                                                                                                                                                 
+3. "Ante.Natal.Smoking..Population.Group...Former.Smoker..Reference.Period...2011.2013..measure.type...Ratio.x"                                                                                                                                             
+4. "Ante.Natal.Smoking..Population.Group...Not.Known.If.Smoking..Reference.Period...2011.2013..measure.type...Ratio"                                                                                                                                        
+5.  "Breastfeeding..Breastfeeding.Data.Collection.Time...6.To.8.Week.Review..Population.Group...Breastfed..Reference.Period...2011..measure.type...Ratio"                                                                                                    
+6.  "Breastfeeding..Breastfeeding.Data.Collection.Time...6.To.8.Week.Review..Population.Group...Breastfed..Reference.Period...2010..measure.type...Ratio"                                                                                                    
+7. "Breastfeeding..Breastfeeding.Data.Collection.Time...6.To.8.Week.Review..Population.Group...Breastfed..Reference.Period...2009..measure.type...Ratio"                                                                                                    
+8. "Breastfeeding..Breastfeeding.Data.Collection.Time...6.To.8.Week.Review..Population.Group...Exclusively.Breastfed..Reference.Period...2009..measure.type...Ratio"                                                                                        
+9. "Breastfeeding..Breastfeeding.Data.Collection.Time...First.Visit..Population.Group...Breastfed..Reference.Period...2010..measure.type...Ratio"                                                                                                           
+10. "Breastfeeding..Breastfeeding.Data.Collection.Time...First.Visit..Population.Group...Breastfed..Reference.Period...2011..measure.type...Ratio"                                                                                                           
+11. "DTP.Pol.Hib.Immunisation..Indicator..DTP.Pol.Hib.uptake....Percentage.Vaccinated.Against.DTP.Pol.Hib.By.24.Months..Reference.Period...2010..measure.type...Ratio"                                                                                       
+12.  "Dwellings.per.Hectare..Reference.Period...2009..measure.type...Ratio"                                                                                                                                                                                   
+13. "Employment.and.Support.Allowance..Age...All..Benefit.Claimed...Employment.Support.Allowance..Ethnicity...All..Gender...All..Reference.Period...2010.Q1..measure.type...Ratio"                                                                           
+14. "Hospital.Admissions..Admission.Type...Cancer..Age...All..Gender...All..Reference.Period...2011..measure.type...Ratio"                                                                                                                                   
+15. "Hospital.Admissions..Admission.Type...Cerebrovascular.Disease..CVD...Age...All..Gender...All..Reference.Period...2011..measure.type...Ratio"                                                                                                            
+16. "Hospital.Admissions..Admission.Type...Accidents..Age...All..Gender...Female..Reference.Period...2009..measure.type...Ratio"                                                                                                                             
+17. "Hospital.Admissions..Admission.Type...Disease.Of.The.Digestive.System..DDS...Age...All..Gender...Female..Reference.Period...2009..measure.type...Ratio"                                                                                                 
+18. "Hospital.Admissions..Admission.Type...Accidents..Age...All..Gender...Female..Reference.Period...2010..measure.type...Ratio"                                                                                                                             
+19. "Hospital.Admissions..Admission.Type...Accidents..Age...All..Gender...Female..Reference.Period...2011..measure.type...Ratio"                                                                                                                             
+20. "Hospital.Admissions..Admission.Type...Cancer..Age...All..Gender...Male..Reference.Period...2011..measure.type...Ratio"                                                                                                                                  
+21. "Household.Estimates..Indicator..dwellings....Which.Are.Vacant..Reference.Period...2011..measure.type...Ratio"                                                                                                                                           
+22. "Household.Estimates..Indicator..dwellings....With..Occupied.Exemptions...Reference.Period...2011..measure.type...Ratio"                                                                                                                                 
+23. "Income.And.Poverty.Modelled.Estimates..Indicator..income.and.poverty.modelled.estimates....Estimated.Percentage.Of.Households.With.A.First.Benefit.Unit..Fbu..Income.Of.Less.Than.800Gbp.Per.Week..Reference.Period...2008.2009..measure.type...Ratio"  
+24. "Income.And.Poverty.Modelled.Estimates..Indicator..income.and.poverty.modelled.estimates....Estimated.Percentage.Of.Households.With.Low.Income..Less.Than.70..Median..And.Materially.Deprived..Reference.Period...2008.2009..measure.type...Ratio"       
+25. "Income.And.Poverty.Modelled.Estimates..Indicator..income.and.poverty.modelled.estimates....Estimated.Percentage.Of.Older.Households.On.Low.Income..Less.Than.60..Median..Before.Housing.Costs..Bhc...Reference.Period...2008.2009..measure.type...Ratio"
+26. "Job.Seeker.s.Allowance.Claimants..Age...16.24..Gender...All..Reference.Period...2011.Q1..measure.type...Ratio"                                                                                                                                          
+27. "Job.Seeker.s.Allowance.Claimants..Age...16.24..Gender...All..Reference.Period...2011.Q2..measure.type...Ratio"                                                                                                                                          
+28. "Job.Seeker.s.Allowance.Claimants..Age...16.24..Gender...All..Reference.Period...2011.Q3..measure.type...Ratio"                                                                                                                                          
+29. "School.Leaver.Destinations.Initial..Gender...All..Population.Group...All..Reference.Period...2009.2010..School.Leaver.Destination...Further.Education..measure.type...Ratio"                                                                            
+30. "School.Leaver.Destinations.Initial..Gender...Male..Population.Group...All..Reference.Period...2009.2010..School.Leaver.Destination...Higher.Education..measure.type...Ratio"                                                                            
+31. "Ante.Natal.Smoking..Population.Group...Former.Smoker..Reference.Period...2011.2013..measure.type...Ratio.y"                                                                                                                                            
+32.  "Breastfeeding..Breastfeeding.Data.Collection.Time...6.To.8.Week.Review..Population.Group...Breastfed..Reference.Period...2012..measure.type...Ratio"                                                                                                    
+33. "Breastfeeding..Breastfeeding.Data.Collection.Time...First.Visit..Population.Group...Breastfed..Reference.Period...2012..measure.type...Ratio"                                                                                                           
+34. "Dwellings.by.Number.of.Rooms..Number.Of.Rooms...6..Reference.Period...2012..measure.type...Ratio"                                                                                                                                                       
+35. "Dwellings.by.Number.of.Rooms..Number.Of.Rooms...7..Reference.Period...2012..measure.type...Ratio"                                                                                                                                                       
+36. "Dwellings.by.Number.of.Rooms..Number.Of.Rooms...8..Reference.Period...2012..measure.type...Ratio"                                                                                                                                                      
+37.  "Dwellings.by.Number.of.Rooms..Number.Of.Rooms...9..Reference.Period...2012..measure.type...Ratio"                                                                                                                                                       
+38. "Dwellings.by.Number.of.Rooms..Number.Of.Rooms...10...Reference.Period...2012..measure.type...Ratio"                                                                                                                                                     
+39. "Hospital.Admissions..Admission.Type...Disease.Of.The.Digestive.System..DDS...Age...All..Gender...All..Reference.Period...2012..measure.type...Ratio"                                                                                                    
+40. "Hospital.Admissions..Admission.Type...Accidents..Age...All..Gender...Female..Reference.Period...2012..measure.type...Ratio"                                                                                                                             
+41. "Job.Seeker.s.Allowance.Claimants..Age...16.64..Gender...All..Reference.Period...2012.Q1..measure.type...Ratio"                                                                                                                                          
+42. "Job.Seeker.s.Allowance.Claimants..Age...50.64..Gender...All..Reference.Period...2012.Q1..measure.type...Ratio"                                                                                                                                          
+43.  "Job.Seeker.s.Allowance.Claimants..Age...16.24..Gender...All..Reference.Period...2012.Q3..measure.type...Ratio"                                                                                                                                          
+44.  "Job.Seeker.s.Allowance.Claimants..Age...16.64..Gender...All..Reference.Period...2012.Q3..measure.type...Ratio"                                                                                                                                          
+45.  "Job.Seeker.s.Allowance.Claimants..Age...50.64..Gender...All..Reference.Period...2012.Q3..measure.type...Ratio"  
+
+
+
+
+
+
+ 
+
+
+
+
