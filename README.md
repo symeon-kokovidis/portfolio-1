@@ -1,22 +1,37 @@
-### Symeon Kokovidis  
-### Portfolio
 
 
-<table id = "MainTable" style="background-color:rgba(0, 0, 0, 0);">
-  <tr>
-    <td width = "50%">
-<font size="5" face="verdana" color="green">Symeon Kokovidis</font> <br> <b> <font size="3"> Portfolio     </td>
 
-    <td width = "25%">
-        <table.......><img src="id_photo.jpeg" alt="Mountain View"></table>
-    </td>
- </tr>
-</table>
+<style type="text/css">
+#wrap {
+   width:100%;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:75%;
+}
+#right_col {
+   float:right;
+   width:25%;
+}
+</style>
 
-![ID photo](id_photo.jpeg)
+<div id="wrap">
+    <div id="left_col"> <br> <br>
+   <font size="5" face="verdana" color="green">Symeon Kokovidis</font> <br> <b> <font size="3"> Portfolio  
+    </div>
+    <div id="right_col">
+           <h2><img src="id_photo.jpeg" alt="Mountain View"></h2>
+    </div>
+</div>
 
 
-Hello. In this repository you will find all of my relevant coding experience but also some of my previous assignments with various software packages.
+
+
+
+
+
+<br> <br> <br> <br> <br> <br> <br> Hello. In this repository you will find all of my relevant coding experience but also some of my previous assignments with various software packages.
 
 In every folder, the readme.md file will give you a brief explanation of the topics covered
 
