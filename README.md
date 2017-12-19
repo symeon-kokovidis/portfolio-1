@@ -1,7 +1,6 @@
 
 ![ID photo](id_photo.jpg)
 
-====
 
 
 Hello. In this repository you will find all of my relevant coding experience but also some of my previous assignments with various software packages.
