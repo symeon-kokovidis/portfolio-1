@@ -8,17 +8,11 @@ calculateFeatures <- function (yDataset, xDatasets, year) {
   
   #initialize some variables
   results <-reactiveValues(SME=NULL, NV=NULL,SE=NULL)
-  start.time <- Sys.time()
 
   #get the observations of the response dataset
   df_y_full<-getCubeObservations('dataset_house_prices',c(year,'reference_area:"dz-2001"'),c('reference_area','mean'))
   
-  end.time <- Sys.time()
-  
-  time.taken <- end.time - start.time
-  print(paste('Time to get obs dataset_house_prices:',time.taken))
-  
-  start.time <- Sys.time()
+
   #### MANIPULATION OF RESPONSE (Y) DATAFRAME
   
   ###### THE FIRST COLUMN REFER TO THE REFERENCE AREA ####
@@ -41,13 +35,9 @@ calculateFeatures <- function (yDataset, xDatasets, year) {
   #COMBINE THE dataset_full with the values of df_y (Y)
   #########################################################################################      
   dataset_full <-merge(x = dataset_full, y = df_y,  by = "reference.area", all.x = TRUE) 
-  end.time <- Sys.time()
-  time.taken <- end.time - start.time
-  print(paste('Time to get create data full obs dataset_house_prices:',time.taken))
-  
+
   #for each of the selected compatible datasets
   for (i in xDatasets()) {
-    start.time <- Sys.time()
 
     #get their dimensions
     q5<- paste('{', i, '{  dimensions { enum_name }}}')
@@ -58,20 +48,12 @@ calculateFeatures <- function (yDataset, xDatasets, year) {
     df6<-runQuery(q6)
     
     df5<-rbind(df5,df6)
-    end.time <- Sys.time()
-    time.taken <- end.time - start.time
-    print(paste('Time to get get dims and measures:',i,' ',time.taken))
-    
-    start.time <- Sys.time()
-    
+
     fixedvalues<-c('reference_area:"dz-2001"',year)
     df<-getCubeObservations(i,fixedvalues,tolower(c(t((df5)))))
-    end.time <- Sys.time()
-    time.taken <- end.time - start.time
-    print(paste('Time to get get obs:',i,' ',time.taken))
+   
     
-    start.time <- Sys.time()
-    #simos
+    #start of matrix transformation
     xnam <- paste( "df$", colnames(df)[c(-1,-ncol(df))] , sep="")
     fmla <- paste(xnam, collapse=" + ")
     ref <- paste ("df$", colnames(df)[1] , sep="")
@@ -81,13 +63,17 @@ calculateFeatures <- function (yDataset, xDatasets, year) {
     dataset_name <-sub(".*?data\\.(.*?)\\.observations.*", "\\1", colnames(df)[1])
     colnames(df_formated)[-1] <- paste( dataset_name , "." , colnames(df_formated)[-1] , sep="")
     colnames(df_formated)[1] <- "reference.area"
-    dataset_clean <- df_formated[ lapply( df_formated, function(x) sum(is.na(x)) / length(x) ) < 0.1 ]
-    dataset_full <-merge(x = dataset_full, y = dataset_clean,  by = "reference.area", all.x = TRUE)
-    end.time <- Sys.time()
-    time.taken <- end.time - start.time
-    print(paste('Time to create data_full:',i,' ',time.taken))
     
-    start.time <- Sys.time()
+
+    
+    #data cleansing rule
+    dataset_clean <- df_formated[ lapply( df_formated, function(x) sum(is.na(x)) / length(x) ) < 0.05 ]
+    dataset_full <-merge(x = dataset_full, y = dataset_clean,  by = "reference.area", all.x = TRUE)
+
+    
+    }
+    
+    ### end of matrix transformation
 
     dataset <- dataset_full
     dataset <- dataset[,-1]
@@ -212,9 +198,4 @@ calculateFeatures <- function (yDataset, xDatasets, year) {
     print(c ("Lowest MSE:" , TestMseWithLambaOfLowTrainMse , "Number of Variables:" , nvarmse  ))
     print(c ("1 Standard Error :" , TestMseWithLambaOfOneStandardErrorTrainMse , "Number of Variables:" , nvarmse  ))
     
-    end.time <- Sys.time()
-    time.taken <- end.time - start.time
-    print(paste('LASSO time',time.taken))
-    
-  }
 }
