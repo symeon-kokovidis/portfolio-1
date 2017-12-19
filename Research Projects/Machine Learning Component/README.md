@@ -24,7 +24,7 @@ Where the user will choose the desired features as predictors.
 Then the lasso algorithm will be executed.
 The user will be able to see an MSE-number of variables plot:
 
-![lasso2] (lasso2.png)
+![lasso2](lasso2.png)
 
 
 And also retrieve the names and the number of predictors based on the "lowest MSE" rule and the "one standard error" rule. 
